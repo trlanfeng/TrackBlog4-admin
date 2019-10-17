@@ -3,18 +3,6 @@
     <el-form :model="form" :rules="rules" label-width="80px" ref="form">
       <el-row>
         <el-col :span="6">
-          <el-form-item prop="category" label="分类">
-            <el-select v-model="form.category">
-              <el-option
-                v-for="item in $store.state.Enum.category"
-                :key="item.value"
-                :value="item.value"
-                :label="item.label"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
           <el-form-item prop="publishedAt" label="发布日期">
             <el-date-picker
               v-model="form.publishedAt"
@@ -27,8 +15,8 @@
       <el-form-item prop="title" label="标题">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
-      <el-form-item prop="content" label="内容">
-        <TinyMCE v-model="form.content"></TinyMCE>
+      <el-form-item prop="content" label="描述">
+        <TinyMCE v-model="form.description"></TinyMCE>
       </el-form-item>
       <el-form-item prop="cover" label="封面图片">
         <el-upload
@@ -58,14 +46,13 @@ export default {
   },
   data() {
     return {
-      moduleName: 'articles',
-      moduleTitle: '文章',
+      moduleName: 'categories',
+      moduleTitle: '分类',
       isEditMode: false,
       id: 0,
       form: {
-        category: '',
         title: '',
-        content: '',
+        description: '',
         cover: '',
         publishedAt: '',
       },

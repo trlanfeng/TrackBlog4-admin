@@ -99,8 +99,8 @@ export default {
         title: '',
         category: '',
       },
-      moduleName: 'articles',
-      moduleTitle: '文章',
+      moduleName: 'categories',
+      moduleTitle: '分类',
     };
   },
 };

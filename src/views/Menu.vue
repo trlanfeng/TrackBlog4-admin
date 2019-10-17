@@ -18,6 +18,10 @@ export default {
           title: '文章管理',
           route: '/articles',
         },
+        {
+          title: '分类管理',
+          route: '/categories',
+        },
       ],
     };
   },

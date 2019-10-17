@@ -5,6 +5,7 @@ import Layout from './views/Layout.vue';
 import Login from './views/Login.vue';
 
 import ArticlesRoutes from './routers/articles';
+import CategoriesRoutes from './routers/categories';
 import AdminsRoutes from './routers/admins';
 
 Vue.use(Router);
@@ -14,6 +15,7 @@ const siteTitle = 'Admin Mini';
 const childrenRoutes = [].concat(
   ArticlesRoutes,
   AdminsRoutes,
+  CategoriesRoutes,
 );
 const routerConfig = {
   mode: 'history',
