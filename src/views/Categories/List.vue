@@ -13,21 +13,6 @@
             @clear="getDataList"
           ></el-input>
         </el-form-item>
-        <el-form-item label="分类">
-          <el-select
-            placeholder="请选择"
-            v-model="filter.category"
-            @change="getDataList"
-          >
-            <el-option label="全部" value></el-option>
-            <el-option
-              v-for="item in $store.state.Enum.category"
-              :key="item.value"
-              :value="item.value"
-              :label="item.label"
-            ></el-option>
-          </el-select>
-        </el-form-item>
       </el-form>
     </FilterBar>
     <div class="action-bar">
