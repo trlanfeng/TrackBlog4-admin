@@ -43,8 +43,8 @@
           :show-overflow-tooltip="true"
           min-width="150"
         ></el-table-column>
-        <el-table-column prop="category" label="分类" min-width="100"></el-table-column>
-        <el-table-column prop="publishedAt" label="发布日期" min-width="100"></el-table-column>
+        <el-table-column prop="category.title" label="分类" min-width="100"></el-table-column>
+        <el-table-column prop="createAt" label="发布日期" min-width="100"></el-table-column>
         <el-table-column
           label="操作"
           fixed="right"
