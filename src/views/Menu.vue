@@ -22,6 +22,14 @@ export default {
           title: '分类管理',
           route: '/categories',
         },
+        {
+          title: '标签管理',
+          route: '/tags',
+        },
+        {
+          title: '系列管理',
+          route: '/series',
+        },
       ],
     };
   },

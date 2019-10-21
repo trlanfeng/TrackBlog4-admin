@@ -6,6 +6,8 @@ import Login from './views/Login.vue';
 
 import ArticlesRoutes from './routers/articles';
 import CategoriesRoutes from './routers/categories';
+import SeriesRoutes from './routers/series';
+import TagsRoutes from './routers/tags';
 import AdminsRoutes from './routers/admins';
 
 Vue.use(Router);
@@ -16,6 +18,8 @@ const childrenRoutes = [].concat(
   ArticlesRoutes,
   AdminsRoutes,
   CategoriesRoutes,
+  SeriesRoutes,
+  TagsRoutes,
 );
 const routerConfig = {
   mode: 'history',
