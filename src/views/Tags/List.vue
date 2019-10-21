@@ -91,10 +91,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.prices {
-  display: flex;
-  .price {
-    width: 25%;
-  }
-}
+
 </style>

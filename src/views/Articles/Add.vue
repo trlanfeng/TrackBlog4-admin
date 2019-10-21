@@ -40,7 +40,7 @@
         <el-input v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item prop="content" label="内容">
-        <TinyMCE v-model="form.content"></TinyMCE>
+        <el-input :autosize="{minRows:10}" type="textarea" v-model="form.content"></el-input>
       </el-form-item>
       <el-form-item prop="cover" label="封面图片">
         <el-upload
@@ -79,12 +79,7 @@
   </div>
 </template>
 <script>
-import TinyMCE from '@/components/TinyMCE/Index.vue';
-
 export default {
-  components: {
-    TinyMCE,
-  },
   data() {
     return {
       moduleName: 'articles',
@@ -179,13 +174,4 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.mr10 {
-  margin-right: 10px;
-}
-.mb10 {
-  margin-bottom: 10px;
-}
-.area_price {
-  line-height: normal;
-}
 </style>

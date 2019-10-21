@@ -16,7 +16,7 @@
         <el-input v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item prop="content" label="描述">
-        <TinyMCE v-model="form.description"></TinyMCE>
+        <el-input rows="3" type="textarea" v-model="form.description"></el-input>
       </el-form-item>
       <el-form-item prop="cover" label="封面图片">
         <el-upload
@@ -37,13 +37,7 @@
   </div>
 </template>
 <script>
-import TinyMCE from '@/components/TinyMCE/Index.vue';
-import Provinces from 'china-division/dist/provinces.json';
-
 export default {
-  components: {
-    TinyMCE,
-  },
   data() {
     return {
       moduleName: 'categories',
@@ -108,11 +102,6 @@ export default {
   mounted() {
     this.id = this.$route.params.id;
     this.isEditMode = !!this.id;
-    this.provinces = Provinces.map((item) => {
-      const province = item;
-      province.active = true;
-      return province;
-    });
     if (this.isEditMode) {
       this.GetData(this.id);
     }
@@ -120,13 +109,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.mr10 {
-  margin-right: 10px;
-}
-.mb10 {
-  margin-bottom: 10px;
-}
-.area_price {
-  line-height: normal;
-}
+
 </style>
