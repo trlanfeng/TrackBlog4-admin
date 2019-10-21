@@ -56,7 +56,7 @@
             <el-button
               type="text"
               icon="el-icon-edit"
-              @click="$router.push(`/articles/edit/${scope.row.id}`)"
+              @click="$router.push(`/${moduleName}/edit/${scope.row.id}`)"
             ></el-button>
             <el-button
               @click="deleteData(scope.row.id)"

@@ -6,10 +6,22 @@
           <el-form-item prop="category" label="分类">
             <el-select v-model="form.category">
               <el-option
-                v-for="item in $store.state.Enum.category"
-                :key="item.value"
-                :value="item.value"
-                :label="item.label"
+                v-for="item in categoriesList"
+                :key="item.id"
+                :value="item.id"
+                :label="item.title"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item prop="series" label="系列">
+            <el-select v-model="form.series" multiple>
+              <el-option
+                v-for="item in seriesList"
+                :key="item.id"
+                :value="item.id"
+                :label="item.title"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -38,19 +50,36 @@
           :before-upload="beforeUpload"
           :on-success="coverUploaded"
         >
-          <img v-if="form.cover" :src="form.cover.url" class="avatar">
+          <img v-if="form.cover" :src="form.cover.url" class="avatar" />
           <el-button v-else size="small" type="primary">点击上传</el-button>
         </el-upload>
       </el-form-item>
+      <el-form-item prop="tags" label="标签">
+        <el-select
+          v-model="form.tags"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          placeholder="请选择文章标签"
+        >
+          <el-option
+            v-for="item in tagsList"
+            :key="item.id"
+            :value="item.id"
+            :label="item.title"
+          ></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm">提交</el-button>
+        <el-button type="primary" @click="submitForm(true)">提交</el-button>
+        <el-button type="success" plain @click="submitForm(false)">存草稿</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
 import TinyMCE from '@/components/TinyMCE/Index.vue';
-import Provinces from 'china-division/dist/provinces.json';
 
 export default {
   components: {
@@ -62,12 +91,18 @@ export default {
       moduleTitle: '文章',
       isEditMode: false,
       id: 0,
+      categoriesList: [],
+      tagsList: [],
+      seriesList: [],
       form: {
         category: '',
         title: '',
         content: '',
         cover: '',
         publishedAt: '',
+        isDraft: false,
+        tags: [],
+        series: [],
       },
       uploadToken: '',
       rules: {
@@ -81,13 +116,26 @@ export default {
     };
   },
   methods: {
+    async getAdditionalData() {
+      try {
+        const series = await this.$http.get('/api/series');
+        this.seriesList = series.data.list;
+        const categories = await this.$http.get('/api/categories');
+        this.categoriesList = categories.data.list;
+        const tags = await this.$http.get('/api/tags');
+        this.tagsList = tags.data.list;
+      } catch (e) {
+        this.$httpErrorHandle(this, e);
+      }
+    },
     coverUploaded(res) {
       this.form.cover = res;
     },
     async beforeUpload() {
       this.uploadToken = await this.$qiniuToken();
     },
-    async submitForm() {
+    async submitForm(isDraft = false) {
+      this.form.isDraft = isDraft;
       try {
         const result = await this.$refs.form.validate();
         if (!result) return;
@@ -98,7 +146,6 @@ export default {
           );
           this.$message.success('更新成功');
         } else {
-          window.console.log('TCL: submitForm -> this.form', this.form);
           await this.$http.post(`/api/${this.moduleName}/`, this.form);
           this.$message.success('新增成功');
         }
@@ -113,19 +160,18 @@ export default {
           `/api/${this.moduleName}/${id}`,
         );
         this.form = res.data;
+        this.form.category = this.form.category.id;
+        this.form.series = this.form.series.map(item => item.id);
+        this.form.tags = this.form.tags.map(item => item.id);
       } catch (e) {
         this.$httpErrorHandle(this, e);
       }
     },
   },
   mounted() {
+    this.getAdditionalData();
     this.id = this.$route.params.id;
     this.isEditMode = !!this.id;
-    this.provinces = Provinces.map((item) => {
-      const province = item;
-      province.active = true;
-      return province;
-    });
     if (this.isEditMode) {
       this.GetData(this.id);
     }
