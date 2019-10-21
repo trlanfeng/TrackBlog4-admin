@@ -2,9 +2,9 @@
   <div class="add-dialog">
     <el-form :model="form" :rules="rules" label-width="80px" ref="form">
       <el-row>
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item prop="category" label="分类">
-            <el-select v-model="form.category">
+            <el-select v-model="form.category" class="full-width">
               <el-option
                 v-for="item in categoriesList"
                 :key="item.id"
@@ -14,21 +14,10 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item prop="series" label="系列">
-            <el-select v-model="form.series" multiple>
-              <el-option
-                v-for="item in seriesList"
-                :key="item.id"
-                :value="item.id"
-                :label="item.title"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item prop="publishedAt" label="发布日期">
             <el-date-picker
+              class="full-width"
               v-model="form.publishedAt"
               type="date"
               placeholder="请选择"
@@ -36,11 +25,25 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-form-item prop="series" label="系列">
+        <el-select v-model="form.series" multiple class="full-width">
+          <el-option
+            v-for="item in seriesList"
+            :key="item.id"
+            :value="item.id"
+            :label="item.title"
+          ></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item prop="title" label="标题">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item prop="content" label="内容">
-        <el-input :autosize="{minRows:10}" type="textarea" v-model="form.content"></el-input>
+        <el-input
+          :autosize="{minRows:10}"
+          type="textarea"
+          v-model="form.content"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="cover" label="封面图片">
         <el-upload
@@ -56,6 +59,7 @@
       </el-form-item>
       <el-form-item prop="tags" label="标签">
         <el-select
+          class="full-width"
           v-model="form.tags"
           multiple
           filterable

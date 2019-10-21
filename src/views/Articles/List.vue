@@ -35,8 +35,8 @@
     </div>
     <div class="grid">
       <el-table style="height:100%;" :data="dataList" v-loading="isDataLoading">
-        <el-table-column fixed type="index" width="50"></el-table-column>
-        <el-table-column prop="id" v-if="false"></el-table-column>
+        <!-- <el-table-column fixed type="index" width="50"></el-table-column> -->
+        <el-table-column fixed prop="id" label="ID" width="50"></el-table-column>
         <el-table-column
           prop="title"
           label="标题"
@@ -44,7 +44,9 @@
           min-width="150"
         ></el-table-column>
         <el-table-column prop="category.title" label="分类" min-width="100"></el-table-column>
-        <el-table-column prop="createAt" label="发布日期" min-width="100"></el-table-column>
+        <el-table-column prop="createAt" label="发布日期" min-width="100">
+          <template slot-scope="scope">{{scope.row.createAt | datetime}}</template>
+        </el-table-column>
         <el-table-column
           label="操作"
           fixed="right"
@@ -106,5 +108,4 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
 </style>

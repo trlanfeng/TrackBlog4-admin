@@ -15,6 +15,7 @@ import App from './App.vue';
 // import './mock/mock';
 
 import './assets/scss/grid-layout.scss';
+import './assets/scss/common.scss';
 
 // Vue.use(axios);
 Vue.config.productionTip = false;
